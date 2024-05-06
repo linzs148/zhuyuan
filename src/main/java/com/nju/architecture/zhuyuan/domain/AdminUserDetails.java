@@ -1,7 +1,7 @@
 package com.nju.architecture.zhuyuan.domain;
 
-import com.nju.architecture.zhuyuan.modules.ems.model.UmsAdmin;
-import com.nju.architecture.zhuyuan.modules.ems.model.UmsResource;
+import com.nju.architecture.zhuyuan.modules.ums.model.UmsAdmin;
+import com.nju.architecture.zhuyuan.modules.ums.model.UmsResource;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

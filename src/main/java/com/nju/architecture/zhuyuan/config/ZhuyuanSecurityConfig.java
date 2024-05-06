@@ -1,8 +1,8 @@
 package com.nju.architecture.zhuyuan.config;
 
-import com.nju.architecture.zhuyuan.modules.ems.model.UmsResource;
-import com.nju.architecture.zhuyuan.modules.ems.service.UmsAdminService;
-import com.nju.architecture.zhuyuan.modules.ems.service.UmsResourceService;
+import com.nju.architecture.zhuyuan.modules.ums.model.UmsResource;
+import com.nju.architecture.zhuyuan.modules.ums.service.UmsAdminService;
+import com.nju.architecture.zhuyuan.modules.ums.service.UmsResourceService;
 import com.nju.architecture.zhuyuan.security.component.DynamicSecurityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
