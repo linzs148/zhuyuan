@@ -16,4 +16,4 @@ logging:
     path: /var/logs
   level:
     root: info
-    com.macro.mall: info
+    com.nju.architecture: info
