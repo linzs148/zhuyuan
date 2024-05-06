@@ -2,18 +2,18 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.macro.mall</groupId>
-    <artifactId>mall-tiny</artifactId>
+    <groupId>com.nju.architecture</groupId>
+    <artifactId>zhuyuan</artifactId>
     <version>1.0.0-SNAPSHOT</version>
-    <name>mall-tiny</name>
-    <description>mall-tiny project</description>
+    <name>zhuyuan</name>
+    <description>zhuyuan project</description>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
         <skipTests>true</skipTests>
-        <docker.host>http://192.168.3.101:2375</docker.host>
+        <docker.host>http://172.29.7.239:2375</docker.host>
         <docker.maven.plugin.version>0.40.0</docker.maven.plugin.version>
         <druid.version>1.2.14</druid.version>
         <hutool.version>5.8.9</hutool.version>
@@ -160,7 +160,7 @@
                     <images>
                         <image>
                             <!--定义镜像名称-->
-                            <name>mall-tiny/${project.name}:${project.version}</name>
+                            <name>zhuyuan/${project.name}:${project.version}</name>
                             <!--定义镜像构建行为-->
                             <build>
                                 <!--定义基础镜像-->
