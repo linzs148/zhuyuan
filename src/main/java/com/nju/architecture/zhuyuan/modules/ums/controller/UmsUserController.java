@@ -5,16 +5,17 @@ import com.nju.architecture.zhuyuan.common.api.CommonResult;
 import com.nju.architecture.zhuyuan.modules.ums.dto.UmsUserLoginParam;
 import com.nju.architecture.zhuyuan.modules.ums.dto.UmsUserRegisterParam;
 import com.nju.architecture.zhuyuan.modules.ums.service.UmsUserService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Map;
 
 /**
  * @author linzs
  * @since 2024-05-06
  */
+@Tag(name = "UmsUserController")
 @RestController
 @RequestMapping("/user")
 public class UmsUserController {
@@ -25,10 +26,10 @@ public class UmsUserController {
     /**
      * 发送短信
      */
+    @Operation(summary = "发送短信")
     @ResponseBody
     @PostMapping(value = "/sendAuthCode")
-    public CommonResult<Void> sendAuthCode(@RequestBody Map<String, String> params) {
-        String phone = params.get("phone");
+    public CommonResult<Void> sendAuthCode(String phone) {
         try {
             umsUserService.sendAuthCode(phone);
         } catch (RuntimeException | ClientException e) {
@@ -40,6 +41,7 @@ public class UmsUserController {
     /**
      * 注册账号
      */
+    @Operation(summary = "注册账号")
     @ResponseBody
     @PostMapping(value = "/register")
     public CommonResult<Void> register(@Validated @RequestBody UmsUserRegisterParam umsUserRegisterParam) {
@@ -54,6 +56,7 @@ public class UmsUserController {
     /**
      * 登录
      */
+    @Operation(summary = "登陆")
     @ResponseBody
     @PostMapping(value = "/login")
     public CommonResult<String> login(@Validated @RequestBody UmsUserLoginParam umsUserLoginParam) {
