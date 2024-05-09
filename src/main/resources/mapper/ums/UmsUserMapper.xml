@@ -4,13 +4,13 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.nju.architecture.zhuyuan.modules.ums.model.UmsUser">
-        <id column="id" property="id" />
-        <result column="username" property="username" />
-        <result column="password" property="password" />
-        <result column="icon" property="icon" />
-        <result column="create_time" property="createTime" />
-        <result column="login_time" property="loginTime" />
-        <result column="phone" property="phone" />
+        <id column="id" property="id"/>
+        <result column="username" property="username"/>
+        <result column="password" property="password"/>
+        <result column="icon" property="icon"/>
+        <result column="create_time" property="createTime"/>
+        <result column="login_time" property="loginTime"/>
+        <result column="phone" property="phone"/>
     </resultMap>
 
 </mapper>

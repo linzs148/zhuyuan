@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class ShortMessageConfig {
     @Bean
-    public ShortMessageService shortMessageService(){
+    public ShortMessageService shortMessageService() {
         return new ShortMessageServiceImpl();
     }
 }

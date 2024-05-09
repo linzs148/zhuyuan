@@ -5,8 +5,8 @@ import com.aliyuncs.exceptions.ClientException;
 import com.nju.architecture.zhuyuan.common.api.CommonResult;
 import com.nju.architecture.zhuyuan.common.service.RedisService;
 import com.nju.architecture.zhuyuan.common.service.ShortMessageService;
+import com.nju.architecture.zhuyuan.modules.ums.dto.UmsUserLoginParam;
 import com.nju.architecture.zhuyuan.modules.ums.dto.UmsUserRegisterParam;
-import com.nju.architecture.zhuyuan.modules.ums.model.UmsUser;
 import com.nju.architecture.zhuyuan.modules.ums.service.UmsUserService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,13 +37,13 @@ public class UmsUserController {
     private Long authCodeExpire;
 
     @Autowired
-    private UmsUserService userService;
+    private UmsUserService umsUserService;
 
     /**
      * 发送短信
      */
     @ResponseBody
-    @PostMapping(value = "/code")
+    @PostMapping(value = "/sendAuthCode")
     public CommonResult<Void> sendAuthCode(@RequestBody Map<String, String> params) {
         String phone = params.get("phone");
         if (phone == null || phone.length() != 11 || !StringUtils.isNumeric(phone)) {
@@ -74,10 +74,36 @@ public class UmsUserController {
         if (!umsUserRegisterParam.getCode().equals(code)) {
             return CommonResult.failed("Auth code dismatched.");
         }
-        UmsUser umsUser = userService.register(umsUserRegisterParam);
-        if (umsUser == null) {
+        if (!umsUserService.register(umsUserRegisterParam)) {
             return CommonResult.failed("Phone number has been registered.");
         }
         return CommonResult.success(null);
     }
+
+    /**
+     * 登录
+     */
+    @ResponseBody
+    @PostMapping(value = "/login")
+    public CommonResult<String> login(@Validated @RequestBody UmsUserLoginParam umsUserLoginParam) {
+        String code = (String) redisService.get(authCodeKey + umsUserLoginParam.getPhone());
+        if (!umsUserLoginParam.getCode().equals(code)) {
+            return CommonResult.failed("Auth code dismatched.");
+        }
+        String token = umsUserService.login(umsUserLoginParam);
+        if (token == null) {
+            return CommonResult.failed("Login failed.");
+        }
+        return CommonResult.success(token);
+    }
+
+//
+//    /**
+//     * 微信登陆
+//     */
+//    @ResponseBody
+//    @PostMapping(value = "/login/wechat")
+//    public CommonResult<String> login(@Validated @RequestBody UmsUserLoginParam umsUserLoginParam) {
+//        return CommonResult.success(null);
+//    }
 }

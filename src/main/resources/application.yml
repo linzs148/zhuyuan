@@ -6,8 +6,8 @@ spring:
     name: zhuyuan
   profiles:
     active: dev
-#  main:
-#    allow-circular-references: true
+  #  main:
+  #    allow-circular-references: true
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
@@ -28,10 +28,7 @@ jwt:
   tokenHead: 'Bearer '  #JWT负载中拿到开头
 
 redis:
-  database: mall
   key:
-    admin: 'ums:admin'
-    resourceList: 'ums:resourceList'
     authCode: 'portal:authCode:'
   expire:
     authCode: 60000 # 验证码超期时间
@@ -52,7 +49,7 @@ secure:
       - /v3/api-docs/**
       - /actuator/**
       - /druid/**
-      - /user/code
+      - /user/sendAuthCode
       - /user/login
       - /user/register
       - /user/logout

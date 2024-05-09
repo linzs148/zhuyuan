@@ -28,7 +28,7 @@ public class MyBatisPlusGenerator {
         // 代码生成器
         AutoGenerator autoGenerator = new AutoGenerator(initDataSourceConfig());
         autoGenerator.global(initGlobalConfig(projectPath));
-        autoGenerator.packageInfo(initPackageConfig(projectPath,moduleName));
+        autoGenerator.packageInfo(initPackageConfig(projectPath, moduleName));
         autoGenerator.injection(initInjectionConfig(projectPath, moduleName));
         autoGenerator.template(initTemplateConfig());
         autoGenerator.strategy(initStrategyConfig(tableNames));
@@ -55,12 +55,12 @@ public class MyBatisPlusGenerator {
      */
     private static GlobalConfig initGlobalConfig(String projectPath) {
         return new GlobalConfig.Builder()
-                .outputDir(projectPath + "/src/main/java")
-                .author("macro")
-                .disableOpenDir()
-                .enableSpringdoc()
-                .dateType(DateType.ONLY_DATE)
-                .build();
+          .outputDir(projectPath + "/src/main/java")
+          .author("macro")
+          .disableOpenDir()
+          .enableSpringdoc()
+          .dateType(DateType.ONLY_DATE)
+          .build();
     }
 
     /**
@@ -71,30 +71,30 @@ public class MyBatisPlusGenerator {
         String url = props.getStr("dataSource.url");
         String username = props.getStr("dataSource.username");
         String password = props.getStr("dataSource.password");
-        return new DataSourceConfig.Builder(url,username,password)
-                .dbQuery(new MySqlQuery())
-                .databaseQueryClass(SQLQuery.class)
-                .build();
+        return new DataSourceConfig.Builder(url, username, password)
+          .dbQuery(new MySqlQuery())
+          .databaseQueryClass(SQLQuery.class)
+          .build();
     }
 
     /**
      * 初始化包配置
      */
-    private static PackageConfig initPackageConfig(String projectPath,String moduleName) {
+    private static PackageConfig initPackageConfig(String projectPath, String moduleName) {
         Props props = new Props("generator.properties");
         return new PackageConfig.Builder()
-                .moduleName(moduleName)
-                .parent(props.getStr("package.base"))
-                .entity("model")
-                .pathInfo(Collections.singletonMap(OutputFile.xml, projectPath + "/src/main/resources/mapper/" + moduleName))
-                .build();
+          .moduleName(moduleName)
+          .parent(props.getStr("package.base"))
+          .entity("model")
+          .pathInfo(Collections.singletonMap(OutputFile.xml, projectPath + "/src/main/resources/mapper/" + moduleName))
+          .build();
     }
 
     /**
      * 初始化模板配置
      */
     private static TemplateConfig initTemplateConfig() {
-        //可以对controller、service、entity模板进行配置
+        // 可以对controller、service、entity模板进行配置
         return new TemplateConfig.Builder().build();
     }
 
@@ -103,24 +103,24 @@ public class MyBatisPlusGenerator {
      */
     private static StrategyConfig initStrategyConfig(String[] tableNames) {
         StrategyConfig.Builder builder = new StrategyConfig.Builder();
-                builder.entityBuilder()
-                .enableFileOverride()
-                .naming(NamingStrategy.underline_to_camel)
-                .columnNaming(NamingStrategy.underline_to_camel)
-                .enableLombok()
-                .formatFileName("%s")
-                .mapperBuilder()
-                .enableFileOverride()
-                .enableBaseResultMap()
-                .formatMapperFileName("%sMapper")
-                .formatXmlFileName("%sMapper")
-                .serviceBuilder()
-                .formatServiceFileName("%sService")
-                .formatServiceImplFileName("%sServiceImpl")
-                .controllerBuilder()
-                .enableRestStyle()
-                .formatFileName("%sController");
-        //当表名中带*号时可以启用通配符模式
+        builder.entityBuilder()
+          .enableFileOverride()
+          .naming(NamingStrategy.underline_to_camel)
+          .columnNaming(NamingStrategy.underline_to_camel)
+          .enableLombok()
+          .formatFileName("%s")
+          .mapperBuilder()
+          .enableFileOverride()
+          .enableBaseResultMap()
+          .formatMapperFileName("%sMapper")
+          .formatXmlFileName("%sMapper")
+          .serviceBuilder()
+          .formatServiceFileName("%sService")
+          .formatServiceImplFileName("%sServiceImpl")
+          .controllerBuilder()
+          .enableRestStyle()
+          .formatFileName("%sController");
+        // 当表名中带*号时可以启用通配符模式
         if (tableNames.length == 1 && tableNames[0].contains("*")) {
             String[] likeStr = tableNames[0].split("_");
             String likePrefix = likeStr[0] + "_";

@@ -1,8 +1,10 @@
 package com.nju.architecture.zhuyuan.modules.ums.service;
 
+import com.baomidou.mybatisplus.extension.service.IService;
+import com.nju.architecture.zhuyuan.modules.ums.dto.UmsUserLoginParam;
 import com.nju.architecture.zhuyuan.modules.ums.dto.UmsUserRegisterParam;
 import com.nju.architecture.zhuyuan.modules.ums.model.UmsUser;
-import com.baomidou.mybatisplus.extension.service.IService;
+import org.springframework.security.core.userdetails.UserDetails;
 
 /**
  * @author macro
@@ -10,5 +12,9 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface UmsUserService extends IService<UmsUser> {
 
-    UmsUser register(UmsUserRegisterParam umsUserRegisterParam);
+    boolean register(UmsUserRegisterParam umsUserRegisterParam);
+
+    String login(UmsUserLoginParam umsUserRegisterParam);
+
+    UserDetails loadUserByUsername(String username);
 }

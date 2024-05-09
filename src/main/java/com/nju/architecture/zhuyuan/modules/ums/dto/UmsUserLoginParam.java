@@ -7,11 +7,11 @@ import lombok.Data;
 import org.hibernate.validator.constraints.Length;
 
 /**
- * 用户注册参数
+ * 用户登录参数
  * Created by linzs on 2024/5、6.
  */
 @Data
-public class UmsUserRegisterParam {
+public class UmsUserLoginParam {
     @NotEmpty
     @Length(min = 11, max = 11)
     @Digits(integer = 11, fraction = 0)

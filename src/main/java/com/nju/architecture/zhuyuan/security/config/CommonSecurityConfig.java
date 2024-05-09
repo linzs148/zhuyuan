@@ -1,6 +1,9 @@
 package com.nju.architecture.zhuyuan.security.config;
 
-import com.nju.architecture.zhuyuan.security.component.*;
+import com.nju.architecture.zhuyuan.security.component.DynamicAuthorizationManager;
+import com.nju.architecture.zhuyuan.security.component.JwtAuthenticationTokenFilter;
+import com.nju.architecture.zhuyuan.security.component.RestAuthenticationEntryPoint;
+import com.nju.architecture.zhuyuan.security.component.RestfulAccessDeniedHandler;
 import com.nju.architecture.zhuyuan.security.util.JwtTokenUtil;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -41,13 +44,8 @@ public class CommonSecurityConfig {
     }
 
     @Bean
-    public JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter(){
+    public JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter() {
         return new JwtAuthenticationTokenFilter();
-    }
-
-    @Bean
-    public DynamicSecurityMetadataSource dynamicSecurityMetadataSource() {
-        return new DynamicSecurityMetadataSource();
     }
 
     @Bean

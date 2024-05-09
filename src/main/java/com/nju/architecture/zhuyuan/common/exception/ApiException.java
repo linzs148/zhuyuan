@@ -2,11 +2,13 @@ package com.nju.architecture.zhuyuan.common.exception;
 
 
 import com.nju.architecture.zhuyuan.common.api.IErrorCode;
+import lombok.Getter;
 
 /**
  * 自定义API异常
  * Created by macro on 2020/2/27.
  */
+@Getter
 public class ApiException extends RuntimeException {
     private IErrorCode errorCode;
 
@@ -27,7 +29,4 @@ public class ApiException extends RuntimeException {
         super(message, cause);
     }
 
-    public IErrorCode getErrorCode() {
-        return errorCode;
-    }
 }

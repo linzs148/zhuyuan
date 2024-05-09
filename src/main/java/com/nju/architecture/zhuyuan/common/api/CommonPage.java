@@ -2,6 +2,7 @@ package com.nju.architecture.zhuyuan.common.api;
 
 import cn.hutool.core.convert.Convert;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import lombok.Getter;
 
 import java.util.List;
 
@@ -9,6 +10,7 @@ import java.util.List;
  * 分页数据封装类
  * Created by macro on 2019/4/19.
  */
+@Getter
 public class CommonPage<T> {
     private Integer pageNum;
     private Integer pageSize;
@@ -24,45 +26,25 @@ public class CommonPage<T> {
         result.setPageNum(Convert.toInt(pageResult.getCurrent()));
         result.setPageSize(Convert.toInt(pageResult.getSize()));
         result.setTotal(pageResult.getTotal());
-        result.setTotalPage(Convert.toInt(pageResult.getTotal()/pageResult.getSize()+1));
+        result.setTotalPage(Convert.toInt(pageResult.getTotal() / pageResult.getSize() + 1));
         result.setList(pageResult.getRecords());
         return result;
-    }
-
-    public Integer getPageNum() {
-        return pageNum;
     }
 
     public void setPageNum(Integer pageNum) {
         this.pageNum = pageNum;
     }
 
-    public Integer getPageSize() {
-        return pageSize;
-    }
-
     public void setPageSize(Integer pageSize) {
         this.pageSize = pageSize;
-    }
-
-    public Integer getTotalPage() {
-        return totalPage;
     }
 
     public void setTotalPage(Integer totalPage) {
         this.totalPage = totalPage;
     }
 
-    public List<T> getList() {
-        return list;
-    }
-
     public void setList(List<T> list) {
         this.list = list;
-    }
-
-    public Long getTotal() {
-        return total;
     }
 
     public void setTotal(Long total) {

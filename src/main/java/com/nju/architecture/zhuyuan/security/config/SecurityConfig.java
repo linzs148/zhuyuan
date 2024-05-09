@@ -1,6 +1,9 @@
 package com.nju.architecture.zhuyuan.security.config;
 
-import com.nju.architecture.zhuyuan.security.component.*;
+import com.nju.architecture.zhuyuan.security.component.DynamicAuthorizationManager;
+import com.nju.architecture.zhuyuan.security.component.JwtAuthenticationTokenFilter;
+import com.nju.architecture.zhuyuan.security.component.RestAuthenticationEntryPoint;
+import com.nju.architecture.zhuyuan.security.component.RestfulAccessDeniedHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -36,33 +39,33 @@ public class SecurityConfig {
     @Bean
     SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
         AuthorizeHttpRequestsConfigurer<HttpSecurity>.AuthorizationManagerRequestMatcherRegistry registry = httpSecurity
-                .authorizeHttpRequests();
-        //不需要保护的资源路径允许访问
+          .authorizeHttpRequests();
+        // 不需要保护的资源路径允许访问
         for (String url : ignoreUrlsConfig.getUrls()) {
             registry.requestMatchers(url).permitAll();
         }
-        //允许跨域请求的OPTIONS请求
+        // 允许跨域请求的OPTIONS请求
         registry.requestMatchers(HttpMethod.OPTIONS)
-                .permitAll();
+          .permitAll();
         // 任何请求需要身份认证
         registry.and()
-                .authorizeHttpRequests()
-                .anyRequest()
-                .access(dynamicAuthorizationManager)
-                // 关闭跨站请求防护及不使用session
-                .and()
-                .csrf()
-                .disable()
-                .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                // 自定义权限拒绝处理类
-                .and()
-                .exceptionHandling()
-                .accessDeniedHandler(restfulAccessDeniedHandler)
-                .authenticationEntryPoint(restAuthenticationEntryPoint)
-                // 自定义权限拦截器JWT过滤器
-                .and()
-                .addFilterBefore(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class);
+          .authorizeHttpRequests()
+          .anyRequest()
+          .access(dynamicAuthorizationManager)
+          // 关闭跨站请求防护及不使用session
+          .and()
+          .csrf()
+          .disable()
+          .sessionManagement()
+          .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+          // 自定义权限拒绝处理类
+          .and()
+          .exceptionHandling()
+          .accessDeniedHandler(restfulAccessDeniedHandler)
+          .authenticationEntryPoint(restAuthenticationEntryPoint)
+          // 自定义权限拦截器JWT过滤器
+          .and()
+          .addFilterBefore(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class);
         return httpSecurity.build();
     }
 }

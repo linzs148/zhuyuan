@@ -1,18 +1,23 @@
 package com.nju.architecture.zhuyuan.modules.ums.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.nju.architecture.zhuyuan.modules.ums.dto.UmsUserRegisterParam;
-import com.nju.architecture.zhuyuan.modules.ums.model.UmsUser;
-import com.nju.architecture.zhuyuan.modules.ums.mapper.UmsUserMapper;
-import com.nju.architecture.zhuyuan.modules.ums.service.UmsUserService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.nju.architecture.zhuyuan.domain.UmsUserDetails;
+import com.nju.architecture.zhuyuan.modules.ums.dto.UmsUserLoginParam;
+import com.nju.architecture.zhuyuan.modules.ums.dto.UmsUserRegisterParam;
+import com.nju.architecture.zhuyuan.modules.ums.mapper.UmsUserMapper;
+import com.nju.architecture.zhuyuan.modules.ums.model.UmsUser;
+import com.nju.architecture.zhuyuan.modules.ums.service.UmsUserService;
+import com.nju.architecture.zhuyuan.security.util.JwtTokenUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
-import java.util.List;
 
 /**
  * @author macro
@@ -24,23 +29,51 @@ public class UmsUserServiceImpl extends ServiceImpl<UmsUserMapper, UmsUser> impl
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    private JwtTokenUtil jwtTokenUtil;
+
     @Override
-    public UmsUser register(UmsUserRegisterParam umsUserRegisterParam) {
-        UmsUser umsUser = new UmsUser();
-        BeanUtils.copyProperties(umsUserRegisterParam, umsUser);
-        umsUser.setCreateTime(new Date());
-        //查询是否有相同用户名的用户
+    public boolean register(UmsUserRegisterParam umsUserRegisterParam) {
+        // 查询是否有相同用户名的用户
         QueryWrapper<UmsUser> wrapper = new QueryWrapper<>();
-        wrapper.lambda().eq(UmsUser::getPhone,umsUser.getPhone());
-        List<UmsUser> umsAdminList = list(wrapper);
-        if (!umsAdminList.isEmpty()) {
-            return null;
+        wrapper.lambda().eq(UmsUser::getPhone, umsUserRegisterParam.getPhone());
+        UmsUser umsUser = getOne(wrapper);
+        if (umsUser != null) {
+            return false;
         }
-        //将密码进行加密操作
+        umsUser = new UmsUser();
+        BeanUtils.copyProperties(umsUserRegisterParam, umsUser);
+        umsUser.setUsername(umsUserRegisterParam.getPhone());
+        umsUser.setCreateTime(new Date());
+        // 将密码进行加密操作
         String encodePassword = passwordEncoder.encode(umsUser.getPassword());
         umsUser.setPassword(encodePassword);
-        baseMapper.insert(umsUser);
-        return umsUser;
+        save(umsUser);
+        return true;
+    }
+
+    @Override
+    public String login(UmsUserLoginParam umsUserLoginParam) {
+        // 密码需要客户端加密后传递
+        UserDetails userDetails = loadUserByUsername(umsUserLoginParam.getPhone());
+        if (userDetails == null || !passwordEncoder.matches(umsUserLoginParam.getPassword(), userDetails.getPassword())) {
+            return null;
+        }
+        UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        String token = jwtTokenUtil.generateToken(userDetails);
+        return token;
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) {
+        QueryWrapper<UmsUser> wrapper = new QueryWrapper<>();
+        wrapper.lambda().eq(UmsUser::getUsername, username);
+        UmsUser umsUser = getOne(wrapper);
+        if (umsUser == null) {
+            return null;
+        }
+        return new UmsUserDetails(umsUser);
     }
 
 }

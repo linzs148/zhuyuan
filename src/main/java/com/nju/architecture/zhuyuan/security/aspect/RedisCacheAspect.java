@@ -22,7 +22,7 @@ import java.lang.reflect.Method;
 @Component
 @Order(2)
 public class RedisCacheAspect {
-    private static Logger LOGGER = LoggerFactory.getLogger(RedisCacheAspect.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(RedisCacheAspect.class);
 
     @Pointcut("execution(public * com.nju.architecture.zhuyuan.modules.*.service.*CacheService.*(..))")
     public void cacheAspect() {
@@ -37,7 +37,7 @@ public class RedisCacheAspect {
         try {
             result = joinPoint.proceed();
         } catch (Throwable throwable) {
-            //有CacheException注解的方法需要抛出异常
+            // 有CacheException注解的方法需要抛出异常
             if (method.isAnnotationPresent(CacheException.class)) {
                 throw throwable;
             } else {

@@ -1,7 +1,7 @@
 package com.nju.architecture.zhuyuan.modules.ums.mapper;
 
-import com.nju.architecture.zhuyuan.modules.ums.model.UmsUser;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.nju.architecture.zhuyuan.modules.ums.model.UmsUser;
 
 /**
  * @author macro
