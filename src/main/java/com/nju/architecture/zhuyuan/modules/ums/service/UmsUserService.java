@@ -1,5 +1,6 @@
 package com.nju.architecture.zhuyuan.modules.ums.service;
 
+import com.aliyuncs.exceptions.ClientException;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.nju.architecture.zhuyuan.modules.ums.dto.UmsUserLoginParam;
 import com.nju.architecture.zhuyuan.modules.ums.dto.UmsUserRegisterParam;
@@ -11,6 +12,8 @@ import org.springframework.security.core.userdetails.UserDetails;
  * @since 2024-05-06
  */
 public interface UmsUserService extends IService<UmsUser> {
+
+    void sendAuthCode(String phone) throws ClientException;
 
     boolean register(UmsUserRegisterParam umsUserRegisterParam);
 

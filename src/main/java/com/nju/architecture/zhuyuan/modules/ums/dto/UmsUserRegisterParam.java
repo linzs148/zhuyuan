@@ -12,6 +12,7 @@ import org.hibernate.validator.constraints.Length;
  */
 @Data
 public class UmsUserRegisterParam {
+
     @NotEmpty
     @Length(min = 11, max = 11)
     @Digits(integer = 11, fraction = 0)
