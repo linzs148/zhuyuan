@@ -1,0 +1,33 @@
+package com.nju.architecture.zhuyuan.modules.ums.service.impl;
+
+import cn.hutool.core.bean.BeanUtil;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.nju.architecture.zhuyuan.modules.ums.dto.req.MessageGetReqDTO;
+import com.nju.architecture.zhuyuan.modules.ums.dto.req.MessageRecordReqDTO;
+import com.nju.architecture.zhuyuan.modules.ums.dto.result.MessageRecordRespDTO;
+import com.nju.architecture.zhuyuan.modules.ums.mapper.MessageMapper;
+import com.nju.architecture.zhuyuan.modules.ums.model.MessageRecord;
+import com.nju.architecture.zhuyuan.modules.ums.service.MessageService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+/**
+ * @author lwp
+ * @since 2024-05-11
+ */
+@Service
+public class MessageServiceImpl extends ServiceImpl<MessageMapper, MessageRecord> implements MessageService {
+
+    @Autowired
+    private MessageMapper messageMapper;
+
+    public boolean storeMessage(MessageRecordReqDTO messageRecordParam) {
+        MessageRecord messageRecord = new MessageRecord();
+        BeanUtil.copyProperties(messageRecord, messageRecordParam);
+        save(messageRecord);
+        return true;
+    }
+
+}

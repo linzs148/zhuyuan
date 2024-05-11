@@ -1,4 +1,4 @@
-package com.nju.architecture.zhuyuan.modules.ums.dto;
+package com.nju.architecture.zhuyuan.modules.ums.dto.req;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Digits;
@@ -11,7 +11,7 @@ import org.hibernate.validator.constraints.Length;
  * Created by linzs on 2024/5、6.
  */
 @Data
-public class UmsUserRegisterParam {
+public class UmsUserRegisterReqDTO {
 
     @NotEmpty
     @Length(min = 11, max = 11)

@@ -2,8 +2,8 @@ package com.nju.architecture.zhuyuan.modules.ums.controller;
 
 import com.aliyuncs.exceptions.ClientException;
 import com.nju.architecture.zhuyuan.common.api.CommonResult;
-import com.nju.architecture.zhuyuan.modules.ums.dto.UmsUserLoginParam;
-import com.nju.architecture.zhuyuan.modules.ums.dto.UmsUserRegisterParam;
+import com.nju.architecture.zhuyuan.modules.ums.dto.req.UmsUserLoginReqDTO;
+import com.nju.architecture.zhuyuan.modules.ums.dto.req.UmsUserRegisterReqDTO;
 import com.nju.architecture.zhuyuan.modules.ums.service.UmsUserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -44,7 +44,7 @@ public class UmsUserController {
     @Operation(summary = "注册账号")
     @ResponseBody
     @PostMapping(value = "/register")
-    public CommonResult<Void> register(@Validated @RequestBody UmsUserRegisterParam umsUserRegisterParam) {
+    public CommonResult<Void> register(@Validated @RequestBody UmsUserRegisterReqDTO umsUserRegisterParam) {
         try {
             umsUserService.register(umsUserRegisterParam);
         } catch (RuntimeException e) {
@@ -59,7 +59,7 @@ public class UmsUserController {
     @Operation(summary = "登陆")
     @ResponseBody
     @PostMapping(value = "/login")
-    public CommonResult<String> login(@Validated @RequestBody UmsUserLoginParam umsUserLoginParam) {
+    public CommonResult<String> login(@Validated @RequestBody UmsUserLoginReqDTO umsUserLoginParam) {
         String token;
         try {
             token = umsUserService.login(umsUserLoginParam);

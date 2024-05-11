@@ -1,4 +1,4 @@
-package com.nju.architecture.zhuyuan.modules.ums.dto;
+package com.nju.architecture.zhuyuan.modules.ums.dto.req;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
@@ -8,7 +8,7 @@ import lombok.Data;
  * Created by linzs on 2024/5、6.
  */
 @Data
-public class UmsUserLoginParam {
+public class UmsUserLoginReqDTO {
 
     @Schema(title = "手机号", required = true)
     private String phone;

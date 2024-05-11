@@ -7,8 +7,8 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.nju.architecture.zhuyuan.common.service.RedisService;
 import com.nju.architecture.zhuyuan.common.service.ShortMessageService;
 import com.nju.architecture.zhuyuan.domain.UmsUserDetails;
-import com.nju.architecture.zhuyuan.modules.ums.dto.UmsUserLoginParam;
-import com.nju.architecture.zhuyuan.modules.ums.dto.UmsUserRegisterParam;
+import com.nju.architecture.zhuyuan.modules.ums.dto.req.UmsUserLoginReqDTO;
+import com.nju.architecture.zhuyuan.modules.ums.dto.req.UmsUserRegisterReqDTO;
 import com.nju.architecture.zhuyuan.modules.ums.mapper.UmsUserMapper;
 import com.nju.architecture.zhuyuan.modules.ums.model.UmsUser;
 import com.nju.architecture.zhuyuan.modules.ums.service.UmsUserService;
@@ -61,7 +61,7 @@ public class UmsUserServiceImpl extends ServiceImpl<UmsUserMapper, UmsUser> impl
     }
 
     @Override
-    public boolean register(UmsUserRegisterParam umsUserRegisterParam) {
+    public boolean register(UmsUserRegisterReqDTO umsUserRegisterParam) {
         // 验证码
         String code = (String) redisService.get(authCodeKey + umsUserRegisterParam.getPhone());
         if (!umsUserRegisterParam.getCode().equals(code)) {
@@ -84,7 +84,7 @@ public class UmsUserServiceImpl extends ServiceImpl<UmsUserMapper, UmsUser> impl
     }
 
     @Override
-    public String login(UmsUserLoginParam umsUserLoginParam) {
+    public String login(UmsUserLoginReqDTO umsUserLoginParam) {
         // 查询
         UserDetails userDetails = loadUserByUsername(umsUserLoginParam.getPhone());
         if (userDetails == null) {
