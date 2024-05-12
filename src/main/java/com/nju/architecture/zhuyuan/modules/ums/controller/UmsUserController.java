@@ -29,7 +29,7 @@ public class UmsUserController {
     @Operation(summary = "发送短信")
     @ResponseBody
     @PostMapping(value = "/sendAuthCode")
-    public CommonResult<Void> sendAuthCode(String phone) {
+    public CommonResult<Void> sendAuthCode(@RequestParam String phone) {
         try {
             umsUserService.sendAuthCode(phone);
         } catch (RuntimeException | ClientException e) {
