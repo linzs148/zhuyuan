@@ -10,6 +10,6 @@ import com.nju.architecture.zhuyuan.modules.ums.model.MessageRecord;
  */
 public interface MessageService extends IService<MessageRecord> {
 
-    boolean storeMessage(MessageRecordReqDTO messageRecordParam);
+    boolean storeMessage(MessageRecordReqDTO messageRecordReqDTO);
 
 }

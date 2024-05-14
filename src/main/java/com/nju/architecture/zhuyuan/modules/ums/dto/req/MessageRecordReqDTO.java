@@ -23,4 +23,8 @@ public class MessageRecordReqDTO {
 
     @Schema(title = "发送时间", required = true)
     private Date timestamp;
+
+    @Schema(title = "主题id", required = true)
+    private int topicId;
+
 }
