@@ -1,8 +1,14 @@
 package com.nju.architecture.zhuyuan.modules.ums.service;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.nju.architecture.zhuyuan.modules.ums.dto.req.MessageRecordReqDTO;
+import com.nju.architecture.zhuyuan.modules.ums.dto.result.MessageListRespDTO;
 import com.nju.architecture.zhuyuan.modules.ums.model.MessageRecord;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * @author lwp
@@ -10,6 +16,8 @@ import com.nju.architecture.zhuyuan.modules.ums.model.MessageRecord;
  */
 public interface MessageService extends IService<MessageRecord> {
 
-    boolean storeMessage(MessageRecordReqDTO messageRecordReqDTO);
+    void storeMessage(MessageRecordReqDTO messageRecordReqDTO);
+
+    List<MessageListRespDTO> getMessageListById(@Param("userId") Long userId);
 
 }

@@ -13,4 +13,6 @@ public class MessageRecordRespDTO {
 
     private Long timestamp;
 
+    private int topicId;
+
 }
