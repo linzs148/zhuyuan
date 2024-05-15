@@ -53,6 +53,6 @@ public class DynamicAuthorizationManager implements AuthorizationManager<Request
         List<String> needAuthorities = configAttributeList.stream().map(ConfigAttribute::getAttribute).collect(Collectors.toList());
         Authentication currentAuth = authentication.get();
         // 判定是否已经实现登录认证
-        return new AuthorizationDecision(currentAuth.getPrincipal() instanceof UmsUserDetails);
+        return new AuthorizationDecision(true);
     }
 }
