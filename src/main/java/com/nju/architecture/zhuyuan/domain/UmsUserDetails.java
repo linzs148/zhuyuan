@@ -32,6 +32,10 @@ public class UmsUserDetails implements UserDetails {
         return umsUser.getUsername();
     }
 
+    public Long getId() {
+        return umsUser.getId();
+    }
+
     @Override
     public boolean isAccountNonExpired() {
         return true;

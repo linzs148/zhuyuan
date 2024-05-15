@@ -1,6 +1,5 @@
 package com.nju.architecture.zhuyuan.security.component;
 
-import com.nju.architecture.zhuyuan.domain.UmsUserDetails;
 import com.nju.architecture.zhuyuan.security.config.IgnoreUrlsConfig;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -55,8 +55,11 @@ secure:
       - /user/logout
 
 aliyun:
+  access-key: 'LTAI5t7Shn2n5z2Nt9xqD3FL'
+  access-secret: 'HkZ9cnKEu8qAZ64FyDFZGrB7kjep5y'
   sms:
-    sms-access-key-id: 'LTAI5t7Shn2n5z2Nt9xqD3FL'
-    sms-access-key-secret: 'HkZ9cnKEu8qAZ64FyDFZGrB7kjep5y'
-    sms-sign-nam: '筑园'
-    sms-template-cod: 'SMS_465945853'
+    sign: '筑园'
+    template: 'SMS_465945853'
+  oss:
+    bucket: 'temp148'
+    endpoint: 'oss-cn-hangzhou.aliyuncs.com'

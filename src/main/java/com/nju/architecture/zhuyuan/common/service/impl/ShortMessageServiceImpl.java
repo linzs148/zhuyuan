@@ -27,13 +27,13 @@ public class ShortMessageServiceImpl implements ShortMessageService {
     // 产品域名,开发者无需替换
     private static final String domain = "dysmsapi.aliyuncs.com";
     private static final String VERIFY_CODES = "1234567890";
-    @Value("${aliyun.sms.sms-access-key-id}")
+    @Value("${aliyun.access-key}")
     private String accessKeyId;
-    @Value("${aliyun.sms.sms-access-key-secret}")
+    @Value("${aliyun.access-secret}")
     private String accessKeySecret;
-    @Value("${aliyun.sms.sms-sign-nam}")
+    @Value("${aliyun.sms.sign}")
     private String signName;
-    @Value("${aliyun.sms.sms-template-cod}")
+    @Value("${aliyun.sms.template}")
     private String templateCode;
 
     @Override
