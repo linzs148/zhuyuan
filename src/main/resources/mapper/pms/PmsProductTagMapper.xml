@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nju.architecture.zhuyuan.modules.pms.mapper.PmsProductTagMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.nju.architecture.zhuyuan.modules.pms.model.PmsProductTag">
+        <id column="id" property="id" />
+        <result column="pid" property="pid" />
+        <result column="tid" property="tid" />
+    </resultMap>
+
+    <select id="getTagList" resultType="java.lang.String">
+        SELECT t.name
+        FROM pms_tag t
+        WHERE t.id IN (
+            SELECT pt.tid
+            FROM pms_product_tag pt
+            WHERE pt.pid = #{pid}
+        )
+    </select>
+
+</mapper>

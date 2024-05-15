@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nju.architecture.zhuyuan.modules.pms.mapper.PmsProductMapper">
+
+    <resultMap id="BaseResultMap" type="com.nju.architecture.zhuyuan.modules.pms.dto.PmsProductListResult">
+        <id column="id" property="id" />
+        <result column="creator" property="creator" />
+        <result column="title" property="title" />
+        <result column="min_cost" property="minCost" />
+        <result column="max_cost" property="maxCost" />
+    </resultMap>
+
+    <select id="getProductList" resultType="com.nju.architecture.zhuyuan.modules.pms.dto.PmsProductListResult">
+        SELECT p.id as id, p.creator as creator, p.title as title, p.min_cost as min_cost, p.max_cost as max_cost
+        FROM pms_product p
+        WHERE p.min_cost >= #{minCost}
+        <if test='maxCost != null'>
+            <![CDATA[AND p.max_cost <= #{maxCost}]]>
+        </if>
+        <if test='tags != null and !tags.isEmpty()'>
+            AND EXISTS (
+                SELECT t.id
+                FROM pms_product_tag t
+                WHERE p.id = t.pid AND t.tid IN
+                    <foreach collection="tags" item="tag"
+                     index="index" open="(" close=")" separator=",">
+                      #{tag}
+                    </foreach>
+            )
+        </if>
+        LIMIT #{limit} OFFSET #{offset}
+    </select>
+
+</mapper>

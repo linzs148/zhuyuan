@@ -27,9 +27,8 @@ public class UmsUserController {
      * 发送短信
      */
     @Operation(summary = "发送短信")
-    @ResponseBody
     @PostMapping(value = "/sendAuthCode")
-    public CommonResult<Void> sendAuthCode(String phone) {
+    public CommonResult<Void> sendAuthCode(@RequestParam String phone) {
         try {
             umsUserService.sendAuthCode(phone);
         } catch (RuntimeException | ClientException e) {
@@ -42,7 +41,6 @@ public class UmsUserController {
      * 注册账号
      */
     @Operation(summary = "注册账号")
-    @ResponseBody
     @PostMapping(value = "/register")
     public CommonResult<Void> register(@Validated @RequestBody UmsUserRegisterParam umsUserRegisterParam) {
         try {
@@ -57,7 +55,6 @@ public class UmsUserController {
      * 登录
      */
     @Operation(summary = "登陆")
-    @ResponseBody
     @PostMapping(value = "/login")
     public CommonResult<String> login(@Validated @RequestBody UmsUserLoginParam umsUserLoginParam) {
         String token;
