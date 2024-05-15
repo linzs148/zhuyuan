@@ -12,7 +12,12 @@
     </resultMap>
 
     <select id="selectMessagesById" resultType="com.nju.architecture.zhuyuan.modules.ums.model.MessageRecord">
-        select * from message_record where sender_id = #{userId} or receiver_id = #{userId}
+        select * from message_record where ((sender_id = #{userId1} and receiver_id = #{userId2}) or
+                                           (sender_id = #{userId2} and receiver_id = #{userId1})) and topic_id = -1
+    </select>
+
+    <select id="selectMessagesByTopicId" resultType="com.nju.architecture.zhuyuan.modules.ums.model.MessageRecord">
+        select * from message_record where topic_id = #{topicId}
     </select>
 
 </mapper>

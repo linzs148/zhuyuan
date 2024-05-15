@@ -3,12 +3,11 @@ package com.nju.architecture.zhuyuan.modules.ums.controller;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.nju.architecture.zhuyuan.common.api.CommonResult;
-import com.nju.architecture.zhuyuan.modules.ums.dto.req.CreateTopicReqDTO;
-import com.nju.architecture.zhuyuan.modules.ums.dto.req.MessageGetReqDTO;
-import com.nju.architecture.zhuyuan.modules.ums.dto.req.MessageRecordReqDTO;
-import com.nju.architecture.zhuyuan.modules.ums.dto.result.MessageRecordGroupRespDTO;
+import com.nju.architecture.zhuyuan.modules.ums.dto.req.*;
 import com.nju.architecture.zhuyuan.modules.ums.dto.result.MessageRecordRespDTO;
+import com.nju.architecture.zhuyuan.modules.ums.dto.result.MessageTopicRespDTO;
 import com.nju.architecture.zhuyuan.modules.ums.mapper.MessageMapper;
+import com.nju.architecture.zhuyuan.modules.ums.mapper.TopicMapper;
 import com.nju.architecture.zhuyuan.modules.ums.service.MessageService;
 import com.nju.architecture.zhuyuan.modules.ums.service.TopicService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -34,6 +33,9 @@ public class MessageController {
     @Autowired
     private TopicService topicService;
 
+    @Autowired
+    private TopicMapper topicMapper;
+
     /**
      * 发送信息
      * @return 成功
@@ -47,16 +49,29 @@ public class MessageController {
     }
 
     /**
-     * 获取信息
-     * @param messageGetReqDTO 获取DTO
+     * 获取私聊信息
+     * @param messageGetPrivateReqDTO 获取DTO
      * @return 分页信息
      */
-    @Operation(summary = "获取信息")
+    @Operation(summary = "获取私聊信息")
     @ResponseBody
-    @GetMapping(value = "/getMessagePage")
-    public CommonResult<Page<MessageRecordRespDTO>> getMessagePage(@RequestBody MessageGetReqDTO messageGetReqDTO) {
-        IPage<MessageRecordRespDTO> page = new Page<>(messageGetReqDTO.getCurrent(), messageGetReqDTO.getPageSize());
-        return CommonResult.success(messageMapper.selectMessagesById(messageGetReqDTO.getUserId(), page));
+    @GetMapping(value = "/getPrivateMessagePage")
+    public CommonResult<Page<MessageRecordRespDTO>> getPrivateMessagePage(@RequestBody MessageGetPrivateReqDTO messageGetPrivateReqDTO) {
+        IPage<MessageRecordRespDTO> page = new Page<>(messageGetPrivateReqDTO.getCurrent(), messageGetPrivateReqDTO.getPageSize());
+        return CommonResult.success(messageMapper.selectMessagesById(messageGetPrivateReqDTO.getUserId1(), messageGetPrivateReqDTO.getUserId2(), page));
+    }
+
+    /**
+     * 获取群聊信息
+     * @param messageGetGroupReqDTO 获取DTO
+     * @return 分页信息
+     */
+    @Operation(summary = "获取群聊信息")
+    @ResponseBody
+    @GetMapping(value = "/getGroupMessagePage")
+    public CommonResult<Page<MessageRecordRespDTO>> getGroupMessagePage(@RequestBody MessageGetGroupReqDTO messageGetGroupReqDTO) {
+        IPage<MessageRecordRespDTO> page = new Page<>(messageGetGroupReqDTO.getCurrent(), messageGetGroupReqDTO.getPageSize());
+        return CommonResult.success(messageMapper.selectMessagesByTopicId(messageGetGroupReqDTO.getTopicId(), page));
     }
 
 
@@ -71,6 +86,17 @@ public class MessageController {
     public CommonResult<Page<MessageRecordRespDTO>> createTopic(@RequestBody CreateTopicReqDTO createTopicReqDTO) {
         topicService.storeTopic(createTopicReqDTO);
         return CommonResult.success(null);
+    }
+
+    /**
+     * 获取群聊
+     */
+    @Operation(summary = "获取群聊")
+    @ResponseBody
+    @GetMapping(value = "/getTopicPage")
+    public CommonResult<Page<MessageTopicRespDTO>> getTopicPage(@RequestBody TopicGetReqDTO topicGetReqDTO) {
+        IPage<MessageTopicRespDTO> page = new Page<>(topicGetReqDTO.getCurrent(), topicGetReqDTO.getPageSize());
+        return CommonResult.success(topicMapper.selectTopicByTopicId(topicGetReqDTO.getTopicId(), page));
     }
 
 }
