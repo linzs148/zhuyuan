@@ -2,6 +2,7 @@ package com.nju.architecture.zhuyuan.modules.ums.controller;
 
 import com.aliyuncs.exceptions.ClientException;
 import com.nju.architecture.zhuyuan.common.api.CommonResult;
+import com.nju.architecture.zhuyuan.modules.ums.dto.req.AuthCodeReqDTO;
 import com.nju.architecture.zhuyuan.modules.ums.dto.req.UmsUserLoginReqDTO;
 import com.nju.architecture.zhuyuan.modules.ums.dto.req.UmsUserRegisterReqDTO;
 import com.nju.architecture.zhuyuan.modules.ums.service.UmsUserService;
@@ -28,9 +29,9 @@ public class UmsUserController {
      */
     @Operation(summary = "发送短信")
     @PostMapping(value = "/sendAuthCode")
-    public CommonResult<Void> sendAuthCode(@RequestParam String phone) {
+    public CommonResult<Void> sendAuthCode(@Validated @RequestBody AuthCodeReqDTO authCodeReqDTO) {
         try {
-            umsUserService.sendAuthCode(phone);
+            umsUserService.sendAuthCode(authCodeReqDTO.getPhone());
         } catch (RuntimeException | ClientException e) {
             return CommonResult.failed(e.getMessage());
         }
