@@ -1,8 +1,6 @@
 package com.nju.architecture.zhuyuan.modules.ums.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.nju.architecture.zhuyuan.modules.ums.dto.req.MessageRecordReqDTO;
 import com.nju.architecture.zhuyuan.modules.ums.dto.result.MessageListRespDTO;

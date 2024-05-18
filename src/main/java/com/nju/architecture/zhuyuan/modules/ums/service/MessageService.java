@@ -1,7 +1,5 @@
 package com.nju.architecture.zhuyuan.modules.ums.service;
 
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.nju.architecture.zhuyuan.modules.ums.dto.req.MessageRecordReqDTO;
 import com.nju.architecture.zhuyuan.modules.ums.dto.result.MessageListRespDTO;

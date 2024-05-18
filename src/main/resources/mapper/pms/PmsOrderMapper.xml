@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nju.architecture.zhuyuan.modules.pms.mapper.PmsOrderMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.nju.architecture.zhuyuan.modules.pms.model.PmsOrder">
+        <id column="id" property="id" />
+        <result column="pid" property="pid" />
+        <result column="description1" property="description1" />
+        <result column="rate1" property="rate1" />
+        <result column="description2" property="description2" />
+        <result column="rate2" property="rate2" />
+        <result column="description3" property="description3" />
+        <result column="rate3" property="rate3" />
+        <result column="cerator" property="cerator" />
+        <result column="designer" property="designer" />
+        <result column="description" property="description" />
+        <result column="state" property="state" />
+        <result column="cost" property="cost" />
+    </resultMap>
+
+</mapper>

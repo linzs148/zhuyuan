@@ -7,10 +7,8 @@ import java.util.List;
 @Data
 public class MessageRecordGroupRespDTO {
 
-    private List<MessageRecordRespDTO> messageRecordList;
-
     int pageNo;
-
     int pageSize;
+    private List<MessageRecordRespDTO> messageRecordList;
 
 }
