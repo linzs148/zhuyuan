@@ -6,6 +6,6 @@ import com.nju.architecture.zhuyuan.modules.ums.model.MessageTopic;
 
 public interface TopicService extends IService<MessageTopic> {
 
-    boolean storeTopic(CreateTopicReqDTO createTopicReqDTO);
+    void storeTopic(CreateTopicReqDTO createTopicReqDTO);
 
 }

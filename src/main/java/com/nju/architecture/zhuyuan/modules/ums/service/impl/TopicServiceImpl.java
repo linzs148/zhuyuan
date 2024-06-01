@@ -13,10 +13,9 @@ public class TopicServiceImpl extends ServiceImpl<TopicMapper, MessageTopic> imp
 
 
     @Override
-    public boolean storeTopic(CreateTopicReqDTO createTopicReqDTO) {
+    public void storeTopic(CreateTopicReqDTO createTopicReqDTO) {
         MessageTopic messageTopic = new MessageTopic();
         BeanUtil.copyProperties(createTopicReqDTO, messageTopic);
         save(messageTopic);
-        return true;
     }
 }
